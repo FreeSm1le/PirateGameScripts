@@ -17,7 +17,7 @@ public class SwimAudioProcessor: MonoBehaviour
         _tpInput = GetComponent<vThirdPersonInput>();
     }
 
-    private void PlayWaterSound(string swimType)  // вызывается аниматором
+    private void PlayWaterSound(string swimType)  // call by animator
     {
         if (tpInput.cc.inputMagnitude < 0.1)
             return;

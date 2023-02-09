@@ -11,8 +11,8 @@ public class CombatAudioProcessor : MonoBehaviour
     [SerializeField] private AK.Wwise.Event _attackOnePhrase;
     [SerializeField] private AK.Wwise.Event _takeDamage;
 
-    vThirdPersonInput _tpInput;
-    vThirdPersonController _tpController;
+    private vThirdPersonInput _tpInput;
+    private vThirdPersonController _tpController;
 
     void Start()
     {
@@ -20,7 +20,7 @@ public class CombatAudioProcessor : MonoBehaviour
         _tpController = GetComponent<vThirdPersonController>();
     }
 
-    private void PlayAttackSound(string NumberOfAttack)
+    private void PlayAttackSound(string NumberOfAttack) //call by animator
     {
         AK.Wwise.Event wwiseEvent = null;
 
@@ -31,15 +31,17 @@ public class CombatAudioProcessor : MonoBehaviour
         else if (NumberOfAttack = AudioGlobalTextVariables.AttackTwo)
         {
             wwiseEvent = _attackTwo;
-
-        else if (NumberOfAttack = AudioGlobalTextVariables.AttackThree)
-            {
-                wwiseEvent = _attackThree;
-            }
-
-            wwiseEvent.Post(gameObject);
-            _attackOnePhrase.Post(gameObject);
         }
+        else if (NumberOfAttack = AudioGlobalTextVariables.AttackThree)
+        {
+            wwiseEvent = _attackThree;
+        }
+
+        if (wwiseEvent == null)
+            return;
+
+        wwiseEvent.Post(gameObject);
+        _attackOnePhrase.Post(gameObject);
     }
 
     private void PlayTakeDamageSound()
@@ -47,4 +49,5 @@ public class CombatAudioProcessor : MonoBehaviour
         _takeDamage.Post(gameObject);
     }
 }
+
 

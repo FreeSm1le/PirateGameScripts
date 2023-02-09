@@ -5,9 +5,9 @@ using Invector.vCharacterController;
 
 public class WwiseFootsteps : MonoBehaviour
 {
-    [SerializeField] private gameObject _footLeft;  // это объект левой ноги. перетаскиваем в компонент
-    [SerializeField] private gameObject _footRight; // объект правой ноги
-    [SerializeField] private AK.Wwise.Event _footevent; // выбираем ивент Wwise
+    [SerializeField] private gameObject _footLeft;  
+    [SerializeField] private gameObject _footRight; 
+    [SerializeField] private AK.Wwise.Event _footevent; 
     [SerializeField] private LayerMask _lm;
 
     private vThirdPersonInput _tpInput;
@@ -19,25 +19,25 @@ public class WwiseFootsteps : MonoBehaviour
         _tpController = GetComponent<vThirdPersonController>();
     }
 
-    private void PlayFootstep(string side) // функция проверки поверхности для  нужного геймобъекта, вызывается из аниматора
+    private void PlayFootstep(string side) // call by animator
     {
         if (tpInput.cc.inputMagnitude < 0.1)
             return;
 
         GameObject footObject = null;
         
-        if (side == AudioGlobalTextVariables.Left) // если вызвали функцию с аргументом Left
+        if (side == AudioGlobalTextVariables.Left) 
         {
             footObject = footLeft;
         }
-        else if (side == AudioGlobalTextVariables.Right) // то же самое для правой ноги
+        else if (side == AudioGlobalTextVariables.Right) 
         {
             footObject = footRight;
         }
 
-        if (Physics.Raycast(footObject.transform.position, Vector3.down, out RaycastHit hit, 0.6f, _lm)) // запускаем рейкаст из объекта нужной ноги вниз
+        if (Physics.Raycast(footObject.transform.position, Vector3.down, out RaycastHit hit, 0.6f, _lm)) 
         {
-            AkSoundEngine.SetSwitch(AudioGlobalTextVariables.Surface, hit.collider.tag, footObject);  // выставляем свитч нужной свитч-группы в положение такое же как тэг поверхности,  на которую наступила нога, применяем свитч для нужной ноги
+            AkSoundEngine.SetSwitch(AudioGlobalTextVariables.Surface, hit.collider.tag, footObject);  
 
             if (_tpController.isSprinting)
             {
@@ -48,7 +48,7 @@ public class WwiseFootsteps : MonoBehaviour
                 AkSoundEngine.SetSwitch(AudioGlobalTextVariables.Locomotion, AudioGlobalTextVariables.Walking, footObject);
             }
  
-            _footevent.Post(footObject); // запускаем ивент для из нужной ноги
+            _footevent.Post(footObject);
         }
     }
 }

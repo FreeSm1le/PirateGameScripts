@@ -3,25 +3,25 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class SliderMusicSwitch : MonoBehaviour
+public class SceneLoader : MonoBehaviour
 {
     [SerializeField] private GameObject _loaderUI;
     [SerializeField] private Slider _progressSlider;
     [SerializeField] private AK.Wwise.Event _loading;
     [SerializeField] private gameObject _loadd;
 
-    private void LoadScene(int index)
+    public void LoadScene(int index)
     {
         AkSoundEngine.SetSwitch(AudioGlobalTextVariables.MusicContainer, AudioGlobalTextVariables.MusicStateQuite, _loadd);
-        StartCoroutine(LoadScene_Coroutine(index));
+        StartCoroutine(ShowRoutine(index));
     }
 
-    private IEnumerator LoadScene_Coroutine(int index)
+    private IEnumerator ShowRoutine(int index)
     {
         progressSlider.value = 0;
         LoaderUI.SetActive(true);
         yield return new WaitForSeconds(5);
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(1);
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(index);
         asyncOperation.allowSceneActivation = false;
         float progress = 0;
 

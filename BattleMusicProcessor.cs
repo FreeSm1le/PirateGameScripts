@@ -5,7 +5,7 @@ using Invector.vCharacterController.AI;
 using Invector.vCharacterController;
 
 
-public class MusicSwitchBattle : MonoBehaviour
+public class BattleMusicProcessor : MonoBehaviour
 {
     [SerializeField] private v_AIController _enemyOne;
     [SerializeField] private v_AIController _enemyTwo;
@@ -17,16 +17,15 @@ public class MusicSwitchBattle : MonoBehaviour
     {
         if (inCombat == false)
         {
-            if(_enemyOne.headTarget || _enemyTwo.headTarget || _enemyThree.headTarget)
+            if (_enemyOne.headTarget || _enemyTwo.headTarget || _enemyThree.headTarget)
             {
                 AkSoundEngine.SetSwitch(AudioGlobalTextVariables.MusicContainer, AudioGlobalTextVariables.BattleState, _player);
                 inCombat = true;
             }
         }
-
         else
         {
-            if (_enemyOne.isDead == true & _enemyTwo.isDead == true & _enemyThree.isDead == true)
+            if (_enemyOne.isDead == true && _enemyTwo.isDead == true && _enemyThree.isDead == true)
             {
                 inCombat = false;
                 AkSoundEngine.SetState(AudioGlobalTextVariables.MusicContainer.AmbState, AudioGlobalTextVariables.MusicStateExploration);
